@@ -1,5 +1,13 @@
 # Example prompts
 
+## Use the executable actions
+
+"Use `looker_inventory` on the report I authorize. Create a bar chart at x=40, y=180, width=500, height=260 with `looker_create`. Use the returned ID to set the year dimension, impressions metric and title with the Looker actions. Inspect the source first and verify the chart after reloading."
+
+"Move the chart titled Annual impressions to x=600, y=180 and resize it to 500 by 260 canvas pixels. Find its current component ID using `looker_inventory`, then use `looker_layout`."
+
+These prompts require the action-server setup; the browser-only configuration does not expose `looker_*` tools.
+
 ## Inspect a report
 
 > Read this repository's Looker skill. Connect to the tab I select and inventory its sources, charts and controls without editing yet.

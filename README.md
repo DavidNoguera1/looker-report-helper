@@ -4,11 +4,13 @@ Design and edit **Google Looker Studio reports with natural-language instruction
 
 This repository includes a Codex plugin, a reusable skill, Claude Code and OpenCode configuration examples, and a practical guide based on controls operated in a real report. [Microsoft Playwright MCP](https://github.com/microsoft/playwright-mcp) provides the browser engine; this project provides the Looker workflow and instructions. It is not an official Google product or a report-editing API.
 
+**Version 0.3 includes executable actions:** create charts, replace fields, set titles, and move/resize components with verified canvas coordinates. The agent calls dedicated `looker_*` tools instead of reconstructing those UI sequences. See [action-server setup and examples](docs/actions.md).
+
 ## Quick start
 
-1. Install Node.js 18+, Chrome and [Playwright Extension](https://github.com/microsoft/playwright-mcp#browser-extension). Python 3.11+ is needed only for the included utilities.
+1. Install Node.js 18+, Python 3.11+, Chrome and [Playwright Extension](https://github.com/microsoft/playwright-mcp#browser-extension). Python runs the action server; the browser-only fallback does not need it.
 2. Open a report you can edit in Chrome.
-3. Follow the [installation guide for your client](docs/installation.md).
+3. Follow the [action-server setup](docs/actions.md) for your client. The [installation guide](docs/installation.md) also documents the browser-only fallback.
 4. Ask: “Read `skills/design-looker-report/SKILL.md`, connect to the Looker tab I select, and inventory its charts before editing.”
 5. Select the tab when the extension prompts you.
 
@@ -17,6 +19,7 @@ This repository includes a Codex plugin, a reusable skill, Claude Code and OpenC
 ## Documentation
 
 - [Installation: Codex, Claude Code and OpenCode](docs/installation.md)
+- [Executable actions: tools, selectors, examples and limitations](docs/actions.md)
 - [Practical Looker Studio editing guide](skills/design-looker-report/references/looker-studio-guide.md)
 - [Troubleshooting and known limitations](docs/troubleshooting.md)
 - [Example prompts](examples/prompts.md)
@@ -36,6 +39,7 @@ The original integration edited a real report through Codex on Windows. Other cl
 python scripts/check.py
 python -m unittest discover -s tests -v
 python scripts/smoke_test.py
+python scripts/smoke_actions.py
 ```
 
 The last command downloads/starts the pinned Playwright MCP version and checks available tools without editing reports. `--browser-test` tests a click and drag in an isolated local page. `--connect` checks the extension and may display its tab picker. Do not run multiple assistants editing the same report concurrently.

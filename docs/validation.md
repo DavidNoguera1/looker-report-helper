@@ -32,3 +32,21 @@ Environment: native Windows, Python 3.12, Node.js 24.18.0, OpenCode 1.18.30, and
 - Codex plugin and skill validators: passed.
 
 Claude Code runtime, macOS/Linux runtime, and full cross-source filter interactions remain untested.
+
+## Version 0.3 executable actions — September 21, 2026
+
+Tested against an owner-authorized freeform training report in the Spanish Looker Studio UI, using its existing source. Private identifiers, screenshots and raw results remain outside Git.
+
+- Created all six supported chart types through the executable action: table, scorecard, bar, pie, time series and pivot. Requested rectangles were checked, including automatic correction of initial chart sizing.
+- Moved an existing chart horizontally and vertically and resized it; the resulting canvas coordinates matched the request within the documented two-pixel tolerance.
+- Replaced dimension, metric, pivot-row and pivot-column fields. Tested exact-name selection, already-selected fields and duplicate chart/default-group entries.
+- Set and verified rendered chart titles. Bringing the tab to the front resolved background rendering stalls encountered during development.
+- Set ascending primary sorting on a bar and table and descending sorting on a pie; checked the selected field and radio state.
+- After another reload, checked ascending year order in the table's rendered rows and visually in a screenshot of the bar chart. Canvas-rendered chart labels were not available as DOM text.
+- Eight component IDs, titles, positions and sizes survived a report reload. A representative bar chart's dimension and metric also survived reload.
+- A deliberately wrong report ID was rejected before mutation.
+- Python tests cover input rejection, user-text serialization, protocol lifecycle, and browser-only/action configurations. JavaScript syntax checks passed.
+- The complete stdio action server initialized and listed its Looker actions plus 31 Playwright tools. OpenCode connected to the action-server configuration on native Windows. A direct Windows Store Python launcher failed under OpenCode; the generated `cmd /c python` launcher passed.
+- Live UI action bodies ran through the existing connected Playwright session. A separate fresh stdio-to-extension live inventory did not complete without a new tab connection; full live editing through that fresh connection remains unverified. Server startup alone is not claimed as that test.
+
+These are functional tests of specific UI operations, not evidence of improved performance across smaller language models. Source reconnection, extra field slots, aggregation editing, advanced styles, filters, responsive/grouped layouts and English-locale live testing are outside the executable action coverage.

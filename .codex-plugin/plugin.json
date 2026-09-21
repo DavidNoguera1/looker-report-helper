@@ -1,7 +1,7 @@
 {
   "name": "looker-report-helper",
-  "version": "0.2.0",
-  "description": "Edit Google Looker Studio reports through natural-language commands and browser automation.",
+  "version": "0.3.0",
+  "description": "Execute verified Looker Studio chart creation, field, title and layout actions through Playwright MCP.",
   "author": {
     "name": "Looker Report Helper contributors"
   },

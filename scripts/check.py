@@ -17,6 +17,8 @@ def main():
     for path in ROOT.rglob('*'):
         if not path.is_file() or SKIP.intersection(path.relative_to(ROOT).parts):
             continue
+        if path.relative_to(ROOT).as_posix() in {'opencode.json', '.codex/config.toml', '.claude/settings.local.json'}:
+            continue
         if path.suffix.lower() in {'.pdf', '.csv', '.png', '.jpg', '.zip'}:
             problems.append(f'Review private/binary artifact: {path.relative_to(ROOT)}')
             continue

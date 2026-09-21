@@ -43,6 +43,27 @@ class ConfigurationTests(unittest.TestCase):
         actual = json.loads((ROOT / '.mcp.json').read_text(encoding='utf-8'))
         self.assertEqual(actual, json.loads(module.render('plugin', 'posix')))
 
+    def test_action_configuration_uses_one_server_and_absolute_script(self):
+        for client in ['codex', 'claude', 'opencode', 'plugin']:
+            for platform in ['windows', 'posix']:
+                text = module.render(client, platform, with_actions=True)
+                if client == 'codex':
+                    servers = tomllib.loads(text)['mcp_servers']
+                    config = servers['looker-browser']
+                    argv = [config['command'], *config['args']]
+                elif client == 'opencode':
+                    servers = json.loads(text)['mcp']
+                    argv = servers['looker-browser']['command']
+                else:
+                    servers = json.loads(text)['mcpServers']
+                    config = servers['looker-browser']
+                    argv = [config['command'], *config['args']]
+                self.assertEqual(list(servers), ['looker-browser'])
+                self.assertEqual(Path(argv[-1]), ROOT / 'automation/server.py')
+                self.assertTrue(Path(argv[-1]).is_absolute())
+                if platform == 'windows':
+                    self.assertEqual(argv[:3], ['cmd', '/c', 'python'])
+
 
 if __name__ == '__main__':
     unittest.main()
