@@ -1,0 +1,4 @@
+[mcp_servers.looker-browser]
+command = "npx"
+args = ["-y", "@playwright/mcp@0.0.82", "--extension", "--browser", "chrome", "--caps", "vision", "--snapshot-boxes"]
+startup_timeout_sec = 60

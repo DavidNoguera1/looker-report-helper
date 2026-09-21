@@ -1,0 +1,23 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "looker-browser": {
+      "type": "local",
+      "command": [
+        "cmd",
+        "/c",
+        "npx",
+        "-y",
+        "@playwright/mcp@0.0.82",
+        "--extension",
+        "--browser",
+        "chrome",
+        "--caps",
+        "vision",
+        "--snapshot-boxes"
+      ],
+      "enabled": true,
+      "timeout": 60000
+    }
+  }
+}

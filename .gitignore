@@ -1,0 +1,17 @@
+.env
+.env.*
+!.env.example
+.playwright-mcp/
+__pycache__/
+*.pyc
+.venv/
+node_modules/
+private/
+artifacts/
+dist/
+opencode.json
+.codex/config.toml
+.claude/settings.local.json
+*storage-state*.json
+*cookies*.json
+*.log

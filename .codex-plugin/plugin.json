@@ -1,0 +1,22 @@
+{
+  "name": "looker-report-helper",
+  "version": "0.2.0",
+  "description": "Edit Google Looker Studio reports through natural-language commands and browser automation.",
+  "author": {
+    "name": "Looker Report Helper contributors"
+  },
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Looker Report Helper",
+    "shortDescription": "Design Looker Studio reports through browser tools.",
+    "longDescription": "A reusable Looker Studio editing skill and Playwright MCP configuration. Uses your own Chrome session; verifies edits through the UI.",
+    "developerName": "Looker Report Helper contributors",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "defaultPrompt": "Read the Looker skill, connect to my report and inspect its charts before editing."
+  }
+}

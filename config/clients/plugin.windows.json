@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "looker-browser": {
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "-y",
+        "@playwright/mcp@0.0.82",
+        "--extension",
+        "--browser",
+        "chrome",
+        "--caps",
+        "vision",
+        "--snapshot-boxes"
+      ]
+    }
+  }
+}

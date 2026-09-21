@@ -1,0 +1,4 @@
+{
+  "package": "@playwright/mcp@0.0.82",
+  "args": ["--extension", "--browser", "chrome", "--caps", "vision", "--snapshot-boxes"]
+}
