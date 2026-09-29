@@ -8,7 +8,7 @@ This repository includes a Codex plugin, a reusable skill, Claude Code and OpenC
 
 **Version 0.4 includes 13 executable tools:** create/configure a chart in one workflow, discover and switch sources, search fields, set titles and sorting, position components and apply colors. The agent supplies structured intent; the server performs the supported UI sequences and checks their controls. Checkpoints help retries reuse an inserted chart. A compact mode reduces the exposed tool set for agents with limited context. See [setup and examples](docs/actions.md).
 
-This reduces the UI work the model must plan. It does not guarantee identical results across models: the agent still interprets the request, chooses meaningful fields and verifies analytical results. Big Pickle and other smaller models have not been benchmarked. See [measured validation](docs/validation.md).
+This reduces the UI work the model must plan. In live OpenCode trials, Big Pickle discovered the source and metric, created and styled a scorecard, then modified it in a fresh session and verified persistence after reload. The creation run's final response was interrupted by a local-file permission request; the modification run completed. These are two functional trials, not a benchmark across models; the agent still interprets requests and verifies analytical results. See [measured validation](docs/validation.md).
 
 ## Quick start
 
@@ -30,13 +30,14 @@ This reduces the UI work the model must plan. It does not guarantee identical re
 - [Example prompts](examples/prompts.md)
 - [Report brief template](examples/report-brief.example.md)
 - [Contributing and publishing](CONTRIBUTING.md)
+- [Distribution: skills.sh, Awesome OpenCode and the MCP Registry](docs/distribution.md)
 - [Validation status](docs/validation.md)
 
 ## Capabilities
 
 The executable tools support six chart types, existing field slots, exact placement, source selection and chart colors. The skill and browser tools also guide operations such as text boxes, number formats, filters and heatmaps; these do not yet have deterministic actions. Changes to controls, sessions or permissions may require intervention.
 
-The original integration edited a real report through Codex on Windows. Other clients use their documented MCP formats; a valid configuration does not prove that every Looker control works from every client. See the validation record for measured results.
+Live report edits have been exercised through Codex and OpenCode on Windows. Claude Code configuration follows its documented MCP format but has not been runtime-tested. A passing workflow does not prove that every Looker control works from every client. See the validation record for measured results.
 
 ## Development
 

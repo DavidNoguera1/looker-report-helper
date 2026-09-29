@@ -15,6 +15,8 @@
 | A filter does not affect everything | Check source, control field, grouping and scope against a known period. |
 | A PDF loses rows | Check table height and scrolling; verify the exported file separately. |
 | Accented text becomes ? | Use explicit UTF-8 for PowerShell JSON input, or JSON Unicode escapes. |
+| OpenCode exits successfully without a final answer | Inspect the events and report state. In our noninteractive Big Pickle trial, an unapproved Bash request stopped the run with exit code zero after the report edits had succeeded. Approve only the needed operation in an interactive session; inspect existing components before retrying creation. |
+| Big Pickle returns FreeTierError / HTTP 403 in the official CLI | Our trial encountered this with deny-by-default tool permissions, before any browser action. Review the [upstream report](https://github.com/anomalyco/opencode/issues/49433) and your client configuration. Keep permissions appropriate to your environment; do not spoof provider headers or broaden access indiscriminately. |
 
 Console warnings do not automatically make a report invalid; an error-free screen does not prove numerical correctness either. Check values, persistence and behavior. Do not paste private-session logs into public issues: they may contain report URLs and data.
 
