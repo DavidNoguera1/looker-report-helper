@@ -1,6 +1,6 @@
 # Distribution options
 
-Checked September 29, 2026. The public GitHub repository is the source of truth. The skill can be installed directly from GitHub, and [Awesome OpenCode PR #784](https://github.com/awesome-opencode/awesome-opencode/pull/784) has been submitted for review. Acceptance into that directory and skills.sh search indexing are still pending.
+Checked September 29, 2026. The public GitHub repository is the source of truth. The skill can be installed directly from GitHub. The Awesome OpenCode submission was withdrawn at the project owner's request; skills.sh search indexing remains unverified.
 
 ## 1. skills.sh: distribute the reusable skill
 
@@ -24,22 +24,14 @@ Use `--agent claude-code` or `--agent codex` for those clients. These options ar
 
 A subsequent project-scoped installation with `--copy --yes` succeeded from the public repository. The installed skill and both reference files matched the canonical contents. This verifies distribution of the instructions, not setup of the MCP server. A subsequent `skills find` query did not yet return the skill; search/leaderboard visibility is unverified. The CLI's installation telemetry is described in its [documentation](https://www.skills.sh/docs/cli).
 
-## 2. Awesome OpenCode: list the complete integration
-
-Recommended for reaching OpenCode users with the MCP server, setup guide and skill together. OpenCode's [official ecosystem page](https://opencode.ai/docs/ecosystem/) links this community directory.
-
-[Contribution instructions](https://github.com/awesome-opencode/awesome-opencode/blob/main/contributing.md) require a YAML entry under the appropriate `data/` category and a pull request. Use **`data/projects/looker-report-helper.yaml`**: this project is an MCP integration with a portable skill, not a native JavaScript OpenCode plugin. A prepared [YAML entry](distribution/awesome-opencode.yaml) is included here.
-
-The repository must be public, recently maintained, relevant, unique and include the required metadata. Maintainers review submissions before merging. The entry was submitted in [PR #784](https://github.com/awesome-opencode/awesome-opencode/pull/784), after passing the directory's own YAML validator. It is awaiting review; submission does not mean inclusion in the published list.
-
-Submission summary:
-
-> Add Looker Report Helper to projects. It connects OpenCode to the user's Google Looker Studio browser session through a local MCP action server and reusable skill. The repository includes setup instructions, executable chart/source/color workflows and a validation record that separates model trials from server startup checks.
-
-## 3. Official MCP Registry: package distribution later
+## 2. Official MCP Registry: package distribution later
 
 The [MCP Registry](https://modelcontextprotocol.io/registry/quickstart) publishes server metadata rather than hosting the implementation. Our local Python server could use its [PyPI package route](https://modelcontextprotocol.io/registry/package-types), or a suitable supported bundle, after packaging and installation tests.
 
 This repository currently uses a clone plus a generated absolute-path launch command. Before Registry submission, create and publish a versioned installable package, verify its ownership metadata, add a Registry `server.json` and authenticate with the publisher CLI. The existing `config/server.json` is our Playwright launch configuration; it is **not** the Registry manifest.
 
 Keep execution local: this integration needs the user's Chrome session. A directory listing does not turn it into a hosted Google API or remove the extension connection step.
+
+## Withdrawn submission
+
+[Awesome OpenCode PR #784](https://github.com/awesome-opencode/awesome-opencode/pull/784) was closed without merging on September 29, 2026, at the project owner's request. The project is not listed there through that submission. The closed PR remains part of GitHub's public history.

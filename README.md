@@ -38,7 +38,7 @@ Use `--agent claude-code` or `--agent codex` for those clients. This installs th
 - [Example prompts](examples/prompts.md)
 - [Report brief template](examples/report-brief.example.md)
 - [Contributing and publishing](CONTRIBUTING.md)
-- [Distribution: skills.sh, Awesome OpenCode and the MCP Registry](docs/distribution.md)
+- [Distribution and publication status](docs/distribution.md)
 - [Validation status](docs/validation.md)
 
 ## Capabilities
