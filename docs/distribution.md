@@ -1,6 +1,6 @@
 # Distribution options
 
-Checked September 29, 2026. The public GitHub repository is the source of truth. These are discovery/submission routes, not claims that a third-party listing has been accepted.
+Checked September 29, 2026. The public GitHub repository is the source of truth. The skill can be installed directly from GitHub, and [Awesome OpenCode PR #784](https://github.com/awesome-opencode/awesome-opencode/pull/784) has been submitted for review. Acceptance into that directory and skills.sh search indexing are still pending.
 
 ## 1. skills.sh: distribute the reusable skill
 
@@ -22,7 +22,7 @@ Use `--agent claude-code` or `--agent codex` for those clients. These options ar
 
 **The skill install does not start or configure the MCP server.** Users must also clone this repository, install the prerequisites and follow [action-server setup](actions.md). The browser extension alone does not connect an agent. Do not advertise the instructions-only installation as a complete working Looker connection.
 
-The discovery check is not an installation or proof of a live leaderboard listing. The CLI's installation telemetry is described in its [documentation](https://www.skills.sh/docs/cli); this project does not generate artificial installs to influence rankings.
+A subsequent project-scoped installation with `--copy --yes` succeeded from the public repository. The installed skill and both reference files matched the canonical contents. This verifies distribution of the instructions, not setup of the MCP server. A subsequent `skills find` query did not yet return the skill; search/leaderboard visibility is unverified. The CLI's installation telemetry is described in its [documentation](https://www.skills.sh/docs/cli).
 
 ## 2. Awesome OpenCode: list the complete integration
 
@@ -30,9 +30,9 @@ Recommended for reaching OpenCode users with the MCP server, setup guide and ski
 
 [Contribution instructions](https://github.com/awesome-opencode/awesome-opencode/blob/main/contributing.md) require a YAML entry under the appropriate `data/` category and a pull request. Use **`data/projects/looker-report-helper.yaml`**: this project is an MCP integration with a portable skill, not a native JavaScript OpenCode plugin. A prepared [YAML entry](distribution/awesome-opencode.yaml) is included here.
 
-The repository must be public, recently maintained, relevant, unique and include the required metadata. Maintainers review submissions before merging. The prepared entry has not been submitted.
+The repository must be public, recently maintained, relevant, unique and include the required metadata. Maintainers review submissions before merging. The entry was submitted in [PR #784](https://github.com/awesome-opencode/awesome-opencode/pull/784), after passing the directory's own YAML validator. It is awaiting review; submission does not mean inclusion in the published list.
 
-Suggested pull request description:
+Submission summary:
 
 > Add Looker Report Helper to projects. It connects OpenCode to the user's Google Looker Studio browser session through a local MCP action server and reusable skill. The repository includes setup instructions, executable chart/source/color workflows and a validation record that separates model trials from server startup checks.
 

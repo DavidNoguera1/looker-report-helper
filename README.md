@@ -12,10 +12,18 @@ This reduces the UI work the model must plan. In live OpenCode trials, Big Pickl
 
 ## Quick start
 
+Install the reusable skill for OpenCode:
+
+```sh
+npx skills add DavidNoguera1/looker-report-helper --skill design-looker-report --agent opencode
+```
+
+Use `--agent claude-code` or `--agent codex` for those clients. This installs the instructions; complete the MCP connection setup below to enable report editing.
+
 1. Install Node.js 18+, Python 3.11+, Chrome and [Playwright Extension](https://github.com/microsoft/playwright-mcp#browser-extension). Python runs the action server; the browser-only fallback does not need it.
 2. Open a report you can edit in Chrome.
 3. Follow the [action-server setup](docs/actions.md) for your client. The [installation guide](docs/installation.md) also documents the browser-only fallback.
-4. Ask: “Read `skills/design-looker-report/SKILL.md`, connect to the Looker tab I select, and inventory its charts before editing.”
+4. Ask: “Use the `design-looker-report` skill, connect to the Looker tab I select, and inventory its charts before editing.”
 5. Select the tab when the extension prompts you.
 
 **“No clients are currently connected”** means the assistant has not connected an MCP server. Installing the browser extension alone does not start that connection.
