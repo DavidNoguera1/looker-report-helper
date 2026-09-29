@@ -1,10 +1,14 @@
 # Looker Report Helper
 
+<img src="assets/logo.png" width="96" alt="Looker Report Helper dashboard and connector logo">
+
 Design and edit **Google Looker Studio reports with natural-language instructions**, using your Chrome session and an MCP-capable assistant.
 
 This repository includes a Codex plugin, a reusable skill, Claude Code and OpenCode configuration examples, and a practical guide based on controls operated in a real report. [Microsoft Playwright MCP](https://github.com/microsoft/playwright-mcp) provides the browser engine; this project provides the Looker workflow and instructions. It is not an official Google product or a report-editing API.
 
-**Version 0.3 includes executable actions:** create charts, replace fields, set titles, and move/resize components with verified canvas coordinates. The agent calls dedicated `looker_*` tools instead of reconstructing those UI sequences. See [action-server setup and examples](docs/actions.md).
+**Version 0.4 includes 13 executable tools:** create/configure a chart in one workflow, discover and switch sources, search fields, set titles and sorting, position components and apply colors. The agent supplies structured intent; the server performs the supported UI sequences and checks their controls. Checkpoints help retries reuse an inserted chart. A compact mode reduces the exposed tool set for agents with limited context. See [setup and examples](docs/actions.md).
+
+This reduces the UI work the model must plan. It does not guarantee identical results across models: the agent still interprets the request, chooses meaningful fields and verifies analytical results. Big Pickle and other smaller models have not been benchmarked. See [measured validation](docs/validation.md).
 
 ## Quick start
 
@@ -20,6 +24,7 @@ This repository includes a Codex plugin, a reusable skill, Claude Code and OpenC
 
 - [Installation: Codex, Claude Code and OpenCode](docs/installation.md)
 - [Executable actions: tools, selectors, examples and limitations](docs/actions.md)
+- [Short recipes for agents: sources, complete charts and colors](skills/design-looker-report/references/action-recipes.md)
 - [Practical Looker Studio editing guide](skills/design-looker-report/references/looker-studio-guide.md)
 - [Troubleshooting and known limitations](docs/troubleshooting.md)
 - [Example prompts](examples/prompts.md)
@@ -29,7 +34,7 @@ This repository includes a Codex plugin, a reusable skill, Claude Code and OpenC
 
 ## Capabilities
 
-Change sources and fields; edit titles, text, number formats and sorting; configure charts, tables and heatmaps; assist with filters and canvas layout. Verify each operation in the UI. Changes to controls, sessions or permissions may require intervention.
+The executable tools support six chart types, existing field slots, exact placement, source selection and chart colors. The skill and browser tools also guide operations such as text boxes, number formats, filters and heatmaps; these do not yet have deterministic actions. Changes to controls, sessions or permissions may require intervention.
 
 The original integration edited a real report through Codex on Windows. Other clients use their documented MCP formats; a valid configuration does not prove that every Looker control works from every client. See the validation record for measured results.
 
@@ -40,9 +45,10 @@ python scripts/check.py
 python -m unittest discover -s tests -v
 python scripts/smoke_test.py
 python scripts/smoke_actions.py
+python scripts/smoke_actions.py --compact
 ```
 
-The last command downloads/starts the pinned Playwright MCP version and checks available tools without editing reports. `--browser-test` tests a click and drag in an isolated local page. `--connect` checks the extension and may display its tab picker. Do not run multiple assistants editing the same report concurrently.
+The smoke commands download/start the pinned Playwright MCP version and check available tools without editing reports. `scripts/smoke_test.py --browser-test` tests a click and drag in an isolated local page; `--connect` checks the extension and may display its tab picker. Do not run multiple assistants editing the same report concurrently.
 
 The public plugin configuration uses `npx`. On Windows, use the client-specific configuration in the installation guide. Keep report exports, private screenshots and credentials outside this repository.
 

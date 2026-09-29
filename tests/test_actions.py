@@ -1,5 +1,6 @@
 """Boundary tests: reject unsafe/invalid plans before touching a browser."""
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -41,13 +42,15 @@ class ActionTests(unittest.TestCase):
             {'jsonrpc': '2.0', 'method': 'notifications/initialized'},
             {'jsonrpc': '2.0', 'id': 2, 'method': 'ping'},
             {'jsonrpc': '2.0', 'id': 3, 'method': 'unknown'},
+            {'jsonrpc': '2.0', 'id': 'Espa\u00f1ol', 'method': 'ping'},
         ]
         run = subprocess.run([sys.executable, str(ROOT / 'automation/server.py')],
-                             input=''.join(json.dumps(r)+'\n' for r in requests),
-                             capture_output=True, text=True, timeout=10)
+                             input=''.join(json.dumps(r,ensure_ascii=False)+'\n' for r in requests),
+                             env={**os.environ, 'PYTHONIOENCODING':'cp1252'},
+                             capture_output=True, text=True, encoding='utf-8', timeout=10)
         self.assertEqual(run.returncode, 0, run.stderr)
         responses = [json.loads(line) for line in run.stdout.splitlines()]
-        self.assertEqual([r['id'] for r in responses], [1, 2, 3])
+        self.assertEqual([r['id'] for r in responses], [1, 2, 3, 'Espa\u00f1ol'])
         self.assertIn('tools', responses[0]['result']['capabilities'])
         self.assertEqual(responses[2]['error']['code'], -32601)
 
@@ -56,6 +59,21 @@ class ActionTests(unittest.TestCase):
         self.assertEqual(validate('looker_set_field', args)['action'], 'set_field')
         names = [t['name'] for t in TOOLS]
         self.assertEqual(len(names), len(set(names)))
+
+    def test_workflow_and_color_validation(self):
+        base = dict(report_id='sample-report', request_id='chart-1', type='bar', title='Title',
+                    source='Source', metric='Total', dimension='Year')
+        self.assertEqual(validate('looker_build_chart', base)['action'], 'build_chart')
+        for change in [{'x':10}, {'type':'scorecard'}, {'type':'pivot'}, {'column_dimension':'Month'},
+                       {'sort_direction':'ascending'}, {'request_id':'../bad'}, {'palette':'invented'}]:
+            with self.subTest(change=change), self.assertRaises(ValueError):
+                validate('looker_build_chart', {**base, **change})
+        color = dict(report_id='sample-report',component_id='cd-test',property='title',color='#Ab12fF')
+        validate('looker_set_color',color)
+        for value in ['red','#fff','#ff00ff00','url(example)']:
+            with self.assertRaises(ValueError):
+                validate('looker_set_color',{**color,'color':value})
+        validate('looker_fields',dict(report_id='sample-report',component_id='cd-test',query=''))
 
 
 if __name__ == '__main__':

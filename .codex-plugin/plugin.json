@@ -1,7 +1,7 @@
 {
   "name": "looker-report-helper",
-  "version": "0.3.0",
-  "description": "Execute verified Looker Studio chart creation, field, title and layout actions through Playwright MCP.",
+  "version": "0.4.0",
+  "description": "Connect agents to Looker Studio with executable chart, source, field, layout and color workflows.",
   "author": {
     "name": "Looker Report Helper contributors"
   },
@@ -10,13 +10,17 @@
   "interface": {
     "displayName": "Looker Report Helper",
     "shortDescription": "Design Looker Studio reports through browser tools.",
-    "longDescription": "A reusable Looker Studio editing skill and Playwright MCP configuration. Uses your own Chrome session; verifies edits through the UI.",
+    "longDescription": "A Looker Studio skill and local MCP action server. Configure complete charts, discover sources and fields, and apply colors through your Chrome session. Includes checkpointed retries and a compact tool mode.",
     "developerName": "Looker Report Helper contributors",
     "category": "Productivity",
     "capabilities": [
       "Interactive",
       "Write"
     ],
+    "brandColor": "#0d9488",
+    "composerIcon": "./assets/icon.png",
+    "logo": "./assets/logo.png",
+    "logoDark": "./assets/logo.png",
     "defaultPrompt": "Read the Looker skill, connect to my report and inspect its charts before editing."
   }
 }

@@ -1,6 +1,6 @@
 # Practical Looker Studio editing guide
 
-This guide records controls observed in a real Spanish-language Looker Studio session on September 21, 2026. The explanation is in English; Spanish labels are retained beside English equivalents so agents can recognize that interface. Labels and selectors may change. Verify the active panel rather than relying on remembered coordinates.
+This guide records controls observed in real Spanish-language Looker Studio sessions on September 21 and 29, 2026. The explanation is in English; Spanish labels are retained beside English equivalents so agents can recognize that interface. Labels and selectors may change. Verify the active panel rather than relying on remembered coordinates.
 
 ## 1. Connect and inspect the canvas
 
@@ -109,3 +109,39 @@ References and screenshots become stale after navigation, scrolling or zoom. Coo
 Return to View and inspect titles, values, order, legends and controls. Reload to verify persistence. Resolve pending saves or network failures before navigating away. If delivering a PDF, export and inspect that file too.
 
 Report edits, numerical checks, visual checks and limitations separately. MCP startup, a local fixture and a live report are different levels of evidence. Keep an accurate list of anything still unverified.
+
+## 10. Source discovery and colors (observed September 29)
+
+Prefer executable actions from [action recipes](action-recipes.md). The following map is for maintenance and unsupported cases; these selectors are implementation details, not a Google contract.
+
+### Review another source
+
+1. Select the intended chart and open Setup / Configuración. Record its current source and fields.
+2. In `[data-webdriver-cell-key=datasource]`, click `.right-side`. The left side edits the source connection and has a wider scope.
+3. Read `datasource-selector-dialog`: `.header-label` distinguishes Added data sources / Fuentes de datos añadidas from Available data sources / Fuentes de datos disponibles. Exact source names are in `.datasource-option .right-side`; `mat-icon[data-mat-icon-name]` identifies the connector.
+4. Select an unambiguous, authorized existing source. Merely listing or selecting a source does not establish dataset access. An inaccessible sample source displayed a no-access error during testing; do not attempt to bypass it.
+5. Inspect dimensions, metrics, sorting, date range and filters. Search the source's fields using `ng2-selector-dialog input[type=search]`. `.common-chip .display-name` holds the name, and the icon indicates its type. The list is virtualized: scroll its `.cdk-virtual-scroll-viewport`; handle `.no-options-text` as an empty result.
+6. Confirm row grain, units, date interpretation, percentage scale and intended aggregations from the source/brief. Replace mistaken mappings, then verify a rendered value.
+
+Looker can map fields automatically when a component source changes; calculated fields and filters may still need repair. Replacing one component's source does not change every component. See [Google's source replacement documentation](https://docs.cloud.google.com/data-studio/replace-the-data-source-for-a-component-page-or-report).
+
+Refreshing source fields is a separate schema operation. Do it only when the source schema actually changed, reviewing its impact on dependent components. See [Google's field refresh documentation](https://docs.cloud.google.com/looker/docs/studio/refresh-data-source-fields).
+
+### Chart colors
+
+Open Style / Estilo on the selected chart. Inspect which controls exist; chart types expose different properties.
+
+| Semantic property | Observed `data-webdriver-cell-key` |
+| --- | --- |
+| Background / title / text / border | `background` / `chartTitleColor` / `fontColor` / `borderColor` |
+| Legend / plot background | `legendColor` / `chartbg` |
+| Table header / header text | `headerColor` / `headerFontColor` |
+| Table even / odd rows | `oddRowColor` / `evenRowColor` (observed UI labels; internal names differ) |
+| Axis / X labels / Y labels / grid | `axisLineColor` / `hAxisLabelsColor` / `leftYAxisLabelsColor` / `leftVGridLineColor` |
+| Series swatches | `multiColor .swatch` |
+
+Click `color-picker-input button` inside the property cell. `color-dialog` contains saved swatches; `.add-custom-button` opens `custom-color-picker`. Fill `input[aria-label=Hex]`, leave the input, and click Done / Hecho. Verify `.color-preview-cell` and the rendered chart. For series, inspect enabled swatches first; disabled swatches had cursor `no-drop` during testing.
+
+Use a restrained palette, readable label contrast, consistent metric colors and distinct category colors. Check conditional formatting separately: changing a base color may not control every rendered cell. Report-wide themes, gradients and opacity are outside the current color action. The action accepts only opaque six-digit hex values.
+
+The current overlay backdrop is a sibling of the picker pane inside its overlay wrapper. It does not always have a `showing` class. Dismiss only the source/field picker you opened; do not discard another dialog. All edits use UI events. Reading computed colors is verification, not permission to assign DOM styles.

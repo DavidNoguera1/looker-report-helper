@@ -1,6 +1,6 @@
 # Installation
 
-**Recommended for version 0.3:** use the [action-server configuration](actions.md), generated with `--with-actions`. It exposes the deterministic Looker operations and the browser tools through one server. The static examples below connect directly to Playwright and expose browser tools only.
+**Recommended for version 0.4:** use the [action-server configuration](actions.md), generated with `--with-actions`. Add `--compact` to expose fewer browser tools for supported chart workflows. The static examples below connect directly to Playwright and expose browser tools only.
 
 Common requirements: Node.js 18+, npm/npx, Chrome with Playwright Extension, and permission to edit the report. Python 3.11+ is only needed for this repository's utilities. The browser extension and MCP server are separate components. Everyone connects their own Google session.
 

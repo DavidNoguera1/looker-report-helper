@@ -2,10 +2,12 @@
 import json
 from pathlib import Path
 import re
+import struct
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 SKIP = {'.git', '__pycache__', '.venv', 'node_modules', 'private', 'artifacts', 'dist', '.playwright-mcp'}
+BRAND_IMAGES = {'assets/logo.png': (512,512), 'assets/icon.png': (128,128)}
 
 
 def main():
@@ -18,6 +20,11 @@ def main():
         if not path.is_file() or SKIP.intersection(path.relative_to(ROOT).parts):
             continue
         if path.relative_to(ROOT).as_posix() in {'opencode.json', '.codex/config.toml', '.claude/settings.local.json'}:
+            continue
+        if path.relative_to(ROOT).as_posix() in BRAND_IMAGES:
+            data = path.read_bytes()
+            if data[:8] != b'\x89PNG\r\n\x1a\n' or len(data)<24 or struct.unpack('>II', data[16:24]) != BRAND_IMAGES[path.relative_to(ROOT).as_posix()]:
+                problems.append(f'Invalid brand PNG: {path.relative_to(ROOT)}')
             continue
         if path.suffix.lower() in {'.pdf', '.csv', '.png', '.jpg', '.zip'}:
             problems.append(f'Review private/binary artifact: {path.relative_to(ROOT)}')

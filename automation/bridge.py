@@ -44,7 +44,7 @@ class Bridge:
                 self.messages.put({'transport_closed': True})
             threading.Thread(target=receive, daemon=True).start()
         self.call('initialize', {'protocolVersion': '2024-11-05', 'capabilities': {},
-                               'clientInfo': {'name': 'looker-actions', 'version': '0.3.0'}})
+                               'clientInfo': {'name': 'looker-actions', 'version': '0.4.0'}})
         self.notify('notifications/initialized', {})
 
     def exchange(self, payload):

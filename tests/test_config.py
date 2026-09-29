@@ -64,6 +64,20 @@ class ConfigurationTests(unittest.TestCase):
                 if platform == 'windows':
                     self.assertEqual(argv[:3], ['cmd', '/c', 'python'])
 
+    def test_compact_configuration_requires_action_server(self):
+        with self.assertRaises(ValueError):
+            module.render('opencode','windows',compact=True)
+        for client in ['codex','claude','opencode','plugin']:
+            text = module.render(client,'windows',with_actions=True,compact=True)
+            if client=='codex':
+                args = tomllib.loads(text)['mcp_servers']['looker-browser']['args']
+            elif client=='opencode':
+                args = json.loads(text)['mcp']['looker-browser']['command']
+            else:
+                args = json.loads(text)['mcpServers']['looker-browser']['args']
+            self.assertEqual(args[-1],'--compact')
+            self.assertEqual(Path(args[-2]),ROOT/'automation/server.py')
+
 
 if __name__ == '__main__':
     unittest.main()

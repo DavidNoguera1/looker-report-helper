@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+<title id="title">Looker Report Helper</title>
+<desc id="desc">A dashboard with three bars connected to a teal node, representing the bridge between an agent and a report.</desc>
+<rect x="0" y="0" width="512" height="512" rx="104" fill="#0f172a" stroke="none" stroke-width="0"/>
+<rect x="78" y="162" width="298" height="252" rx="32" fill="none" stroke="#e2e8f0" stroke-width="18"/>
+<rect x="124" y="296" width="42" height="72" rx="10" fill="#38bdf8" stroke="none" stroke-width="0"/>
+<rect x="192" y="256" width="42" height="112" rx="10" fill="#2dd4bf" stroke="none" stroke-width="0"/>
+<rect x="260" y="212" width="42" height="156" rx="10" fill="#a5b4fc" stroke="none" stroke-width="0"/>
+<polyline points="302,162 302,118 406,118 406,200" fill="none" stroke="#2dd4bf" stroke-width="22" stroke-linejoin="round"/>
+<ellipse cx="302" cy="118" rx="24" ry="24" fill="#2dd4bf" stroke="#0f172a" stroke-width="10"/>
+<rect x="370" y="184" width="72" height="72" rx="20" fill="#2dd4bf" stroke="#0f172a" stroke-width="10"/>
+</svg>
